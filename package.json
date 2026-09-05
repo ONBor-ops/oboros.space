@@ -10,7 +10,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "deploy": "astro build && npx wrangler pages deploy dist --project-name oboros"
+    "deploy": "astro build && npx wrangler deploy"
   },
   "dependencies": {
     "astro": "^7.3.1",

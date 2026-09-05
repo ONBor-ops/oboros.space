@@ -37,31 +37,24 @@ npm run dev
 
 Open [http://localhost:4321](http://localhost:4321).
 
-## Deploy to Cloudflare Pages
+## Deploy to Cloudflare
 
-The site is static. Cloudflare Pages is the intended host.
+The site is static. Cloudflare builds with `npm run build`, then deploys `dist/` as Worker assets (`wrangler.toml`).
 
-### First time, from this folder
+### GitHub (recommended)
 
-1. Install the CLI once: `npm install --save-dev wrangler`
-2. Log in: `npx wrangler login`
-3. Build and ship:
+Build command: `npm run build`  
+Deploy command: `npx wrangler deploy`  
+Node: `22`
+
+Every push to `main` rebuilds.
+
+### From this folder
 
 ```bash
+npx wrangler login
 npm run deploy
 ```
-
-That creates a Pages project named `oboros` and prints a `*.pages.dev` URL.
-
-### Or connect GitHub
-
-1. Push this folder to a GitHub repository.
-2. In the Cloudflare dashboard: **Workers & Pages → Create → Pages → Connect to Git**.
-3. Build command: `npm run build`
-4. Build output directory: `dist`
-5. Node version: `22` or later.
-
-Every push rebuilds the site, including new journal posts.
 
 ### Point blog.oboros.space at it (replace the old site)
 
