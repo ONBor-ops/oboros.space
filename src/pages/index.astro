@@ -1,0 +1,43 @@
+---
+import Base from "../layouts/Base.astro";
+---
+
+<Base title="oboros.space" description="Welcome to oboros.space." cover>
+  <main>
+    <section class="voyage" id="voyage" aria-label="A flight through nearby worlds">
+      <canvas class="space-canvas" id="space"></canvas>
+    </section>
+
+    <div class="overlay">
+      <div class="hero-copy" id="hero-copy">
+        <svg class="hero-mark" viewBox="0 0 64 64" aria-hidden="true">
+          <circle cx="32" cy="32" r="18" fill="none" stroke="#c4a574" stroke-width="1.6"></circle>
+          <circle cx="32" cy="14" r="2.6" fill="#c4a574"></circle>
+        </svg>
+        <h1>
+          <span>welcome to</span>
+          <em>oboros.space</em>
+        </h1>
+      </div>
+      <div class="hero-cta" id="hero-cta">
+        <p>the other side</p>
+        <a class="cta" href="/journal">Enter the journal</a>
+      </div>
+    </div>
+
+    <div class="scroll-cue" id="scroll-cue">
+      scroll
+      <i></i>
+    </div>
+
+    <svg class="progress" viewBox="0 0 36 36" aria-hidden="true">
+      <circle class="track" cx="18" cy="18" r="15.9"></circle>
+      <circle class="fill" id="progress-ring" cx="18" cy="18" r="15.9" pathLength="100"></circle>
+    </svg>
+  </main>
+</Base>
+
+<script>
+  import { mountSpace } from "../scripts/space.js";
+  mountSpace();
+</script>

@@ -1,0 +1,78 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+  solidNav?: boolean;
+  cover?: boolean;
+}
+
+const {
+  title = "oboros.space",
+  description = "A dark room at the edge of the map. Notes from orbit.",
+  solidNav = false,
+  cover = false,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://oboros.space");
+const current = Astro.url.pathname.replace(/\/$/, "") || "/";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/brand/ouroboros.jpg" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL("/og.jpg", Astro.site ?? "https://oboros.space")} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body data-cover={cover ? "" : undefined}>
+    <div class="grain" aria-hidden="true"></div>
+    <header class:list={["nav", { "is-solid": solidNav }]} id="nav">
+      <a class="brand" href="/">
+        <img src="/brand/ouroboros.jpg" alt="" width="22" height="22" />
+        oboros
+      </a>
+      <a
+        class="nav-link"
+        href="/journal"
+        aria-current={current.startsWith("/journal") ? "page" : undefined}
+      >
+        Journal
+      </a>
+    </header>
+    <slot />
+    <script>
+      const nav = document.getElementById("nav");
+      const onCover = document.body.hasAttribute("data-cover");
+      const sync = () => {
+        if (!nav) return;
+        if (!onCover) {
+          nav.classList.add("is-solid");
+          return;
+        }
+        nav.classList.toggle("is-solid", window.scrollY > 24);
+      };
+      sync();
+      window.addEventListener("scroll", sync, { passive: true });
+    </script>
+  </body>
+</html>

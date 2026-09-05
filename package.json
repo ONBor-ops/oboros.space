@@ -1,0 +1,22 @@
+{
+  "name": "oboros.space",
+  "type": "module",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "deploy": "astro build && npx wrangler pages deploy dist --project-name oboros"
+  },
+  "dependencies": {
+    "astro": "^7.3.1",
+    "three": "^0.185.1"
+  },
+  "allowScripts": {
+    "esbuild": true
+  }
+}

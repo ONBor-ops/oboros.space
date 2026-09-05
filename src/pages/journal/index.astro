@@ -1,0 +1,55 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../../layouts/Base.astro";
+
+const posts = (
+  await getCollection("posts", ({ data }) =>
+    import.meta.env.PROD ? data.draft !== true : true,
+  )
+).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const fmt = new Intl.DateTimeFormat("en", {
+  year: "numeric",
+  month: "short",
+  day: "2-digit",
+  timeZone: "UTC",
+});
+---
+
+<Base
+  title="Journal — oboros.space"
+  description="Writing from oboros.space."
+  solidNav
+>
+  <main class="page">
+    <header class="page-head">
+      <p class="kicker">Journal</p>
+      <h1>Notes from orbit.</h1>
+      <p class="lede">Quiet pages. Add a markdown file and it appears here.</p>
+    </header>
+
+    {
+      posts.length === 0 ? (
+        <p class="empty">Nothing published yet. Drop a file in src/content/posts.</p>
+      ) : (
+        <ul class="post-list">
+          {posts.map((post) => (
+            <li>
+              <a href={`/journal/${post.id}`}>
+                <time class="post-date" datetime={post.data.date.toISOString()}>
+                  {fmt.format(post.data.date)}
+                </time>
+                <div>
+                  <h2>{post.data.title}</h2>
+                  <p>{post.data.excerpt}</p>
+                </div>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+
+    <footer class="site-foot">oboros.space</footer>
+  </main>
+</Base>
