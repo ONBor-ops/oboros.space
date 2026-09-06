@@ -43,11 +43,19 @@ The site is static. Cloudflare builds with `npm run build`, then deploys `dist/`
 
 ### GitHub (recommended)
 
-Build command: `npm run build`  
-Deploy command: `npx wrangler deploy`  
-Node: `22`
+Connect the GitHub repo to the Worker in Cloudflare. After that, every push to `main` rebuilds and deploys.
 
-Every push to `main` rebuilds.
+1. Open [Workers & Pages](https://dash.cloudflare.com/?to=/:account/workers-and-pages).
+2. Create a Worker named `oboros`, or open it if it already exists.
+3. **Settings → Builds → Connect** and authorize GitHub.
+4. Pick `ONBor-ops/oboros.space`, production branch `main`.
+5. Build settings:
+
+   - Build command: `npm run build`
+   - Deploy command: `npx wrangler deploy`
+   - Node: `22` (set `NODE_VERSION=22` under build variables if the build is not already on 22)
+
+6. Save, then push to `main` (or **Retry** the first build).
 
 ### From this folder
 
